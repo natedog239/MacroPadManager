@@ -1,5 +1,5 @@
 # MacroPadManager
- Python application to manage 3x3 MacroPad
+ Python application to manage 3x3 Pico MacroPad 
  
 ## Application:
 
