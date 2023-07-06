@@ -46,7 +46,7 @@ def create_buttons(window):
     return button_frame
 
 def update_key_combination(btn_num, new_key_combo):
-    with fileinput.FileInput('E:\code.py', inplace=True) as file:
+    with fileinput.FileInput('G:\code.py', inplace=True) as file:
         for line in file:
             match = re.search(r'#(\d+)$', line.strip())
             if match and match.group(1) == str(btn_num):
@@ -57,7 +57,7 @@ def update_key_combination(btn_num, new_key_combo):
 def refresh_buttons():
     for i in range(1, 10):
         button_text = ''
-        with open('E:\code.py') as f:
+        with open('G:\code.py') as f:
             code = f.read()
 
         for line_num, line in enumerate(code.split('\n')):
