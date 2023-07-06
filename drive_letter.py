@@ -1,13 +1,23 @@
 import psutil
+import win32api
+import time
+
+test = win32api.GetLogicalDrives()
+print(test)
 
 def get_drive_letter(device_name):
-    # Get a list of all connected drives
+    # Get a list of all connected drives 
     drives = psutil.disk_partitions()
 
     # Iterate over the drives and find the one with the specified name
     for drive in drives:
-        if device_name in drive.device:
-            return drive.mountpoint
+        print(drive)
+        letter = drive[1]
+        print(letter)
+        time.sleep(1)
+        #info = win32api.GetVolumeInformation(letter)
+        #print(info)
+        time.sleep(1)
 
     # If the device is not found, return None
     return None
