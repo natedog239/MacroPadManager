@@ -5,7 +5,7 @@ import fileinput
 
 
 def create_buttons(window):
-    with open('E:\code.py') as f:
+    with open('G:\code.py') as f:
         code = f.read()
 
     button_frame = tk.Frame(window)
