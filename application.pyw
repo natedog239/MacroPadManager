@@ -2,7 +2,32 @@ import tkinter as tk
 import tkinter.simpledialog as sd
 import re
 import fileinput
+import wmi
 
+def get_drive_letter(device_name):
+    # Connect to the WMI service
+    c = wmi.WMI()
+
+    # Query for all USB devices
+    usb_devices = c.Win32_USBHub()
+
+    # Iterate over the devices and find the one with the specified name
+    for device in usb_devices:
+        if device_name in device.Name:
+            # Get the associated disk drive
+            associated_drive = device.Associators()[0]
+
+            # Extract the drive letter
+            drive_letter = associated_drive.Caption
+
+            return drive_letter
+
+    # If the device is not found, return None
+    return None
+
+# Usage example
+device_name = "CIRCUITPY"
+drive_letter = get_drive_letter(device_name)
 
 def create_buttons(window):
     with open('G:\code.py') as f:
