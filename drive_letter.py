@@ -1,30 +1,22 @@
-import wmi
+import psutil
 
 def get_drive_letter(device_name):
-    # Connect to the WMI service
-    c = wmi.WMI()
+    # Get a list of all connected drives
+    drives = psutil.disk_partitions()
 
-    # Query for all USB devices
-    usb_devices = c.Win32_USBHub()
-    #print(usb_devices)
-
-    # Iterate over the devices and find the one with the specified name
-    for device in usb_devices:
-        print('Device: ',device)
-        if device_name in device.Name:
-            print('Device_name: ',device_name)
-            # Get the associated disk drive
-            associated_drive = device.Associators()[0]
-
-            # Extract the drive letter
-            drive_letter = associated_drive.Caption
-
-            return drive_letter
+    # Iterate over the drives and find the one with the specified name
+    for drive in drives:
+        if device_name in drive.device:
+            return drive.mountpoint
 
     # If the device is not found, return None
     return None
 
 # Usage example
-device_name = "Samsung"
+device_name = "CIRCUITPY"
 drive_letter = get_drive_letter(device_name)
-print('The conencted drive letter is: ', drive_letter)
+
+if drive_letter:
+    print(f"The drive letter associated with {device_name} is {drive_letter}")
+else:
+    print(f"No drive named {device_name} found.")
