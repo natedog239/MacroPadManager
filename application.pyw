@@ -34,7 +34,6 @@ def create_buttons(window):
                 button_text = button_text.replace(', ', '')
                 break
 
-        #print(f'Button {i}: {button_text}')
         button = tk.Button(button_frame, text=button_text, width=20, height=5)
         button.config(command=lambda i=i: set_key_combination(i))
         buttons.append(button)
