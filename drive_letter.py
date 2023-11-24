@@ -1,33 +1,27 @@
-import psutil
+import os
 import win32api
 import time
 
 # Test code for win32api
-test = win32api.GetLogicalDrives()
+test = win32api.GetLogicalDrives
 print(test)
 
-def get_drive_letter(device_name):
-    # Get a list of all connected drives 
-    drives = psutil.disk_partitions()
+def find_drive_with_name(target_name):
+    available_drives = [f"{drive}:\\" for drive in range(ord('A'), ord('Z') + 1) if os.path.exists(f"{drive}:\\" or drive == ':')]
+    print(available_drives)
+    for drive in available_drives:
+        drive_name = drive.split("\\")[-2]
+        print(drive_name)
+        if target_name.lower() in drive_name.lower():
+            return drive
 
-    # Iterate over the drives and find the one with the specified name
-    for drive in drives:
-        print(drive)
-        letter = drive[1]
-        print(letter)
-        time.sleep(1)
-        #info = win32api.GetVolumeInformation(letter)
-        #print(info)
-        time.sleep(1)
-
-    # If the device is not found, return None
     return None
 
-# Usage example
-device_name = "CIRCUITPY"
-drive_letter = get_drive_letter(device_name)
+# Example usage
+target_name = "CIRCUITPY"
+found_drive = find_drive_with_name(target_name)
 
-if drive_letter:
-    print(f"The drive letter associated with {device_name} is {drive_letter}")
+if found_drive:
+    print(f"The drive with name '{target_name}' is found on drive letter: {found_drive}")
 else:
-    print(f"No drive named {device_name} found.")
+    print(f"No drive with name '{target_name}' found.")
