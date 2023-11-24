@@ -1,11 +1,16 @@
 import tkinter as tk
 import tkinter.simpledialog as sd
+import tkinter.messagebox as mg
 import re
 import fileinput
 
 def create_buttons(window):
-    with open('G:\code.py') as f:
-        code = f.read()
+    try:
+        with open('G:\code.py') as f:
+            code = f.read()
+        # Continue processing the code variable or do something with it
+    except FileNotFoundError:
+        mg.showerror("File Not Found", "The file on G: drive could not be located.")
 
     button_frame = tk.Frame(window)
     button_frame.pack()
